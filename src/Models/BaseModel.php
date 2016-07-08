@@ -24,8 +24,7 @@ class BaseModel extends Model
 {
     use Authenticatable,
         CanResetPassword,
-        EntrustUserTrait,
-        Validable;
+        EntrustUserTrait;
 
     public static $snakeAttributes = false;
 
