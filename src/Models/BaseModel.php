@@ -5,10 +5,9 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Sofa\Eloquence\Model;
 use Sofa\Eloquence\Contracts\CleansAttributes;
 use Sofa\Eloquence\Contracts\Validable as ValidableContract;
-use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Model;
 use Sofa\Eloquence\Validable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
@@ -23,8 +22,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 class BaseModel extends Model
     implements ValidableContract, CleansAttributes, AuthenticatableContract, AuthorizableContract
 {
-    use Eloquence,
-        Authenticatable,
+    use Authenticatable,
         CanResetPassword,
         EntrustUserTrait,
         Validable;
