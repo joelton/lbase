@@ -17,8 +17,7 @@ class Permission extends EntrustPermission implements ValidableContract
      * @var array
      */
     protected static $businessRules = [
-        'name' => ['required', 'unique:permissions'],
-        'display_name' => 'required'
+        'name' => ['required', 'unique:permissions']
     ];
     /**
      * @var array
@@ -31,8 +30,7 @@ class Permission extends EntrustPermission implements ValidableContract
      */
     protected $fillable = [
         'name',
-        'displayName',
-        'description',
+        'displayName'
     ];
 
     /**

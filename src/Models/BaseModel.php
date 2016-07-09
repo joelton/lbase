@@ -1,15 +1,10 @@
 <?php
 namespace Lfalmeida\Lbase\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Sofa\Eloquence\Contracts\CleansAttributes;
 use Sofa\Eloquence\Contracts\Validable as ValidableContract;
 use Sofa\Eloquence\Model;
 use Sofa\Eloquence\Validable;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 /**
  * Class BaseModel
@@ -20,11 +15,9 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
  *
  */
 class BaseModel extends Model
-    implements ValidableContract, CleansAttributes, AuthenticatableContract, AuthorizableContract
+    implements ValidableContract, CleansAttributes
 {
-    use Authenticatable,
-        CanResetPassword,
-        EntrustUserTrait;
+
 
     public static $snakeAttributes = false;
 
