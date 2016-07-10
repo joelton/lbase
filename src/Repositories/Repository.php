@@ -158,6 +158,7 @@ abstract class Repository implements RepositoryInterface
         }
 
         $errorMessage = "Não foi possível salvar.";
+        
         if (method_exists($model, 'isValid')) {
             $exception = new ValidationException();
             $exception->setMessages($model->getValidationErrors()->all());
