@@ -4,14 +4,18 @@ namespace Lfalmeida\Lbase\Utils;
 use ReflectionClass;
 
 /**
- * Class BasicEnum
+ * Class EnumBase
+ *
+ * Classe utilitária para base de objetos no estilo "Enum", que aceitam apenas determinados valores.
+ *
+ * @package Lfalmeida\Lbase\Utils
  */
 abstract class EnumBase
 {
     /**
      * @var null
      */
-    private static $constCacheArray = NULL;
+    private static $constCacheArray = null;
 
     /**
      * EnumBase constructor.
@@ -22,28 +26,9 @@ abstract class EnumBase
     }
 
     /**
-     * @return mixed
-     */
-    private static function getConstants()
-    {
-
-        if (self::$constCacheArray == NULL) {
-            self::$constCacheArray = [];
-        }
-
-        $calledClass = get_called_class();
-
-        if (!array_key_exists($calledClass, self::$constCacheArray)) {
-            $reflect = new ReflectionClass($calledClass);
-            self::$constCacheArray[$calledClass] = $reflect->getConstants();
-        }
-
-        return self::$constCacheArray[$calledClass];
-    }
-
-    /**
-     * @param $name
+     * @param      $name
      * @param bool $strict
+     *
      * @return bool
      */
     public static function isValidName($name, $strict = false)
@@ -59,7 +44,28 @@ abstract class EnumBase
     }
 
     /**
+     * @return mixed
+     */
+    private static function getConstants()
+    {
+
+        if (self::$constCacheArray == null) {
+            self::$constCacheArray = [];
+        }
+
+        $calledClass = get_called_class();
+
+        if (!array_key_exists($calledClass, self::$constCacheArray)) {
+            $reflect = new ReflectionClass($calledClass);
+            self::$constCacheArray[$calledClass] = $reflect->getConstants();
+        }
+
+        return self::$constCacheArray[$calledClass];
+    }
+
+    /**
      * @param $value
+     *
      * @return bool
      */
     public static function isValidValue($value)

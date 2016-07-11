@@ -9,8 +9,25 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Middleware\BaseMiddleware;
 
+/**
+ * Class TokenEntrustAbility
+ *
+ * Filta os requests permitindo o acesso apenas para usuários autenticados
+ * via token que possuam uma combinação de Role e Permission.
+ *
+ * @package Lfalmeida\Lbase\Middleware
+ */
 class TokenEntrustAbility extends BaseMiddleware
 {
+    /**
+     * @param         $request
+     * @param Closure $next
+     * @param         $roles
+     * @param         $permissions
+     * @param bool    $validateAll
+     *
+     * @return mixed
+     */
     public function handle($request, Closure $next, $roles, $permissions, $validateAll = false)
     {
 
@@ -45,7 +62,7 @@ class TokenEntrustAbility extends BaseMiddleware
         }
 
         if (!$request->user()->ability(explode('|', $roles), explode('|', $permissions),
-            array('validate_all' => $validateAll))
+            ['validate_all' => $validateAll])
         ) {
             return Response::apiResponse([
                 'httpCode' => 401,

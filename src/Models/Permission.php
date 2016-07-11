@@ -6,6 +6,13 @@ use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Validable;
 use Zizaco\Entrust\EntrustPermission;
 
+/**
+ * Class Permission
+ *
+ * Model de Permissões
+ *
+ * @package Lfalmeida\Lbase\Models
+ */
 class Permission extends EntrustPermission implements ValidableContract
 {
     use Eloquence, Validable;

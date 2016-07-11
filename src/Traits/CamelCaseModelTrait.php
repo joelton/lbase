@@ -7,7 +7,6 @@ namespace Lfalmeida\Lbase\Traits;
  *  Mantem a consistência e convenção de nomes de propriedades
  * e colunas do banco de dados
  *
- * @author Fernando
  *
  */
 trait CamelCaseModelTrait

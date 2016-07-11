@@ -9,13 +9,22 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Middleware\BaseMiddleware;
 
+/**
+ * Class TokenEntrustPermission
+ *
+ * Filta os requests permitindo o acesso apenas para usuários autenticados
+ * via token que possuam uma determinada Prmission.
+ *
+ *
+ * @package Lfalmeida\Lbase\Middleware
+ */
 class TokenEntrustPermission extends BaseMiddleware
 {
     /**
-     * Handle an incoming request.
+     * @param         $request
+     * @param Closure $next
+     * @param         $permission
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next, $permission)

@@ -4,6 +4,11 @@ namespace Lfalmeida\Lbase\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class LbaseServiceProvider
+ *
+ * @package Lfalmeida\Lbase\Providers
+ */
 class LbaseServiceProvider extends ServiceProvider
 {
     /**
@@ -13,6 +18,9 @@ class LbaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /**
+         * Inicializa o macro Response
+         */
         require __DIR__ . implode(DIRECTORY_SEPARATOR, ['','..', 'Macros', 'apiResponse.php']);
     }
 

@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Esta macro adiciona um tipo de response customizado.
+ *
+ * Retorna um JSON
+ *
+ */
+
+/**
+ * Mapa com os erros suportados.
+ */
 $statusMessagesMap = [
     200 => ['status' => 'success', 'message' => 'Ok'],
     201 => ['status' => 'success', 'message' => 'New resource has been created.'],
@@ -29,12 +39,16 @@ Response::macro('apiResponse',
         $message = $options['message'] ? $options['message'] : $statusMessagesMap[$options['httpCode']]['message'];
         $response = ['status' => $status, 'data' => $options['data'], 'message' => $message];
 
+        /**
+         * Se foi recebido como parâmetro 'erros', adicionamos a chave erros a resposta.
+         * Isto é útil no caso de múltiplos erros para uma ação, ex.: erros de validação.
+         */
         if ($options['errors']) {
             $response['errors'] = $options['errors'];
         }
 
         /**
-         * Retornando objetos customizados para paginação
+         * Caso o parâmetro data seja resultado de uma paginação, aqui nós padronizamos o resultado.
          */
         if (is_object($options['data']) && is_subclass_of($options['data'], 'Illuminate\Contracts\Pagination\Paginator')) {
             $results = $options['data']->toArray()['data'];
@@ -55,6 +69,9 @@ Response::macro('apiResponse',
             ];
         }
 
+        /**
+         * Se for uma resposta de erro, não é necessário retornamos a chave 'data'
+         */
         if ($status == 'error' || empty($options['data'])) {
             unset($response['data']);
         }

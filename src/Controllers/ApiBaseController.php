@@ -3,23 +3,31 @@ namespace Lfalmeida\Lbase\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Lfalmeida\Lbase\Contracts\RepositoryInterface as Repository;
-use Response;
+
 
 /**
  * Class ApiBaseController
+ *
+ * Esta Classe tem o objetivo de ser o ponto de partida para criação de controllers de api.
  *
  * @package Lfalmeida\Lbase\Controllers
  */
 abstract class ApiBaseController extends Controller
 {
     /**
-     * @var Repository
+     * Instância do repositório que será utilizado para a entidade gerenciada por este
+     * controller
+     *
+     * @var \Lfalmeida\Lbase\Contracts\RepositoryInterface Repository
      */
     protected $repository;
 
     /**
      * ApiBaseController constructor.
+     *
+     * Neste método atribuímos a instância concreta do repositório atrelado ao controller
      *
      * @param Repository $repository
      */
@@ -29,7 +37,32 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Recebe o request e retorna uma lista das entidades com paginação, por padrão.
+     *
+     * Este método é o ponto de entrada para alguns outros métodos deste controller, que são direcionados
+     * de acordo com parâmetros presentes ou não no request.
+     *
+     * As chaves possíveis no request são: **disablePagination, search e count**.
+     *
+     * Caso estas chaves sejam encontradas no request, apresentarão os seguintes comportamentos:
+     *
+     * - **disablePagination**: Mostra uma lista completa, sem paginação, útil no caso de solicitações para
+     * preenchimento de dropdowns.
+     *
+     * - **search**: Indica a execução de uma busca, sendo assim direcionamos para o método de busca neste mesmo
+     * controller.
+     *
+     * - **count**: Retorna apenas o total de resultados encontrados.
+     *
+     * - **fields**: String com as colunas desejadas no retorno, separadas por vírgula.
+     *
+     * Caso esteja presente o parâmetro **search**, os seguintes parâmetros também serão verificados:
+     *
+     * - **pageSise**: Inteiro indicando a quantidade de resultados por página.
+     *
+     * - **sort**: Coluna para ordenação
+     *
+     * - **order**: Direção da ordenação
      *
      * @param Request $request
      *
@@ -56,6 +89,8 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
+     * Realiza uma busca utilizando o repositório, repassando os parâmetros do request.
+     *
      * @param Request $request
      *
      * @return mixed
@@ -69,7 +104,7 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
-     * Display all resources without pagination
+     * Lista todos os registros, sem paginação.
      *
      * @param Request $request
      *
@@ -87,7 +122,7 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
-     * Returns the total of items
+     * Retorna o total de itens cadastrados para esta entidade
      *
      * @return mixed
      */
@@ -100,7 +135,16 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
-     * Display paginated api resources
+     * Retorna os resultados paginados.
+     *
+     * Este método aceita os seguintes parâmetros fornecidos via Request: **fields, pageSize, sort, order**.
+     *
+     * - **fields**: String com as colunas desejadas no retorno, separadas por vírgula.
+     * - **pageSise**: Inteiro indicando a quantidade de resultados por página.
+     * - **sort**: Coluna para ordenação
+     * - **order**: Direção da ordenação
+     *
+     * @internal Este método não é exposto via url, sendo acessado via método index
      *
      * @param Request $request
      */
@@ -121,7 +165,9 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Salva uma entidade utilizando o repositório.
+     *
+     * Os parâmentros recebidos no request são repassados para o repositório.
      *
      * @param  \Illuminate\Http\Request $request
      *
@@ -136,9 +182,13 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Retorna uma entidade recuperada através do seu id.
      *
-     * @param  int    $id
+     * Este método aceita os seguintes parâmetros fornecidos via Request: **fields**.
+     *
+     * - **fields**: String com as colunas desejadas no retorno, separadas por vírgula.
+     *
+     * @param  int    $id Id da entidade.
      * @param Request $request
      *
      * @return \Illuminate\Http\Response
@@ -163,10 +213,10 @@ abstract class ApiBaseController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza os dados de uma entidade com base nos dados obtidos no Request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int                      $id Id da entidade a ser atualizada
      *
      * @return \Illuminate\Http\Response
      */
@@ -180,9 +230,9 @@ abstract class ApiBaseController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove uma entidade específica.
      *
-     * @param  int $id
+     * @param  int $id Id da entidade que deve ser removida
      *
      * @return \Illuminate\Http\Response
      */

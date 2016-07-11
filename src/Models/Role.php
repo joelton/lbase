@@ -10,6 +10,8 @@ use Zizaco\Entrust\EntrustRole;
 /**
  * Class Role
  *
+ * Model de roles
+ *
  * @package Lfalmeida\Lbase\Models
  */
 class Role extends EntrustRole implements ValidableContract

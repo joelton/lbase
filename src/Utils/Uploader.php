@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Lfalmeida\Lbase\Models\Document;
 
+/**
+ * Class Uploader
+ *
+ * @package Lfalmeida\Lbase\Utils
+ *
+ */
 class Uploader
 {
 
@@ -34,6 +40,7 @@ class Uploader
         foreach ($files as $file) {
             $this->handleSingleFile($file);
         }
+        return true;
     }
 
     public function handleSingleFile($file)
@@ -69,7 +76,16 @@ class Uploader
      */
     private function getUniqueName()
     {
-        return (string) str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+        return (string)str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+    }
+
+    /**
+     * @param Document $document
+     *
+     */
+    public function addFileToList(Document $document)
+    {
+        $this->fileList[] = $document;
     }
 
     /**
@@ -88,15 +104,6 @@ class Uploader
     public function getFileList()
     {
         return $this->fileList;
-    }
-
-    /**
-     * @param Document $document
-     *
-     */
-    public function addFileToList(Document $document)
-    {
-        $this->fileList[] = $document;
     }
 
 

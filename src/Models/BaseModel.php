@@ -9,16 +9,23 @@ use Sofa\Eloquence\Validable;
 /**
  * Class BaseModel
  *
- * Base para todos os models da aplicação
+ * O objetivo desta classe é servir como ponto de partida para os models do sistema.
  *
- * @package App\Models
+ * Aqui, implementamos as interfaces [ValidableContract](https://github.com/jarektkaczyk/eloquence/wiki/Validable),
+ * e [CleansAttributes](https://github.com/jarektkaczyk/eloquence)
  *
+ * Para o nome das propriedades e métodos, será utilizado **lowerCamelCase**
+ *
+ * [CODING STYLES](http://www.php-fig.org)
+ *
+ * @package Lfalmeida\Lbase\Models
  */
-class BaseModel extends Model
-    implements ValidableContract, CleansAttributes
+abstract class BaseModel extends Model implements ValidableContract, CleansAttributes
 {
 
-
+    /**
+     * @var bool
+     */
     public static $snakeAttributes = false;
 
     /**

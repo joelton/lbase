@@ -9,13 +9,17 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Middleware\BaseMiddleware;
 
+/**
+ * Class TokenEntrustRole
+ *
+ * @package Lfalmeida\Lbase\Middleware
+ */
 class TokenEntrustRole extends BaseMiddleware
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param         $request
+     * @param Closure $next
+     * @param         $role
      *
      * @return mixed
      */

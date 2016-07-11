@@ -5,56 +5,77 @@ namespace Lfalmeida\Lbase\Contracts;
 /**
  * Interface RepositoryInterface
  *
- * Padronizados aqui os métodos que serão utilizados nos repositórios.
+ * Aqui definimos os métodos comuns que serão utilizados nos repositórios.
  *
  * @package Lfalmeida\Lbase\Contracts
  */
 interface RepositoryInterface
 {
     /**
-     * @param array $columns
+     * Retorna todos os registros da entidade
+     *
+     * @param array $columns Array com as colunas desejadas no retorno, por padrão, são retornadas todas
+     *
      * @return mixed
      */
-    public function all($columns = array('*'));
+    public function all($columns = ['*']);
 
     /**
-     * @param int $perPage
-     * @param array $columns
+     * Retorna os registros paginados
+     *
+     * @param int   $perPage Define a quantidade de registros por página
+     * @param array $columns Array com as colunas desejadas no retorno, por padrão, são retornadas todas
+     *
      * @return mixed
      */
-    public function paginate($perPage = 15, $columns = array('*'));
+    public function paginate($perPage = 15, $columns = ['*']);
 
     /**
-     * @param array $data
+     * Persiste um registro
+     *
+     * @param array $data Array associativo com as colunas e valores a serem salvos
+     *
      * @return mixed
      */
     public function create(array $data);
 
     /**
-     * @param $id
-     * @param array $data
+     * Atualiza um registro
+     *
+     * @param integer $id   Id da entidade
+     * @param array   $data Array associativo com as colunas e valores a serem atualizados
+     *
      * @return mixed
      */
     public function update($id, array $data);
 
     /**
-     * @param $id
+     * Remove um registro
+     *
+     * @param integer $id Id da entidade
+     *
      * @return mixed
      */
     public function delete($id);
 
     /**
-     * @param $id
-     * @param array $columns
+     * Busca uma entidade utilizando o ID
+     *
+     * @param integer $id      Id da entidade
+     * @param array   $columns $data Array associativo com as colunas e valores a serem atualizados
+     *
      * @return mixed
      */
-    public function find($id, $columns = array('*'));
+    public function find($id, $columns = ['*']);
 
     /**
-     * @param $field
-     * @param $value
-     * @param array $columns
+     * Busca entidades utilizando uma coluna determinada
+     *
+     * @param string         $field   Nome da coluna onde será realizada a busca
+     * @param string|integer $value   Valor a ser buscadp
+     * @param array          $columns Array com as colunas desejadas no retorno, por padrão, são retornadas todas
+     *
      * @return mixed
      */
-    public function findBy($field, $value, $columns = array('*'));
+    public function findBy($field, $value, $columns = ['*']);
 }
