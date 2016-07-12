@@ -294,8 +294,7 @@ abstract class Repository implements RepositoryInterface
     {
         $perPage = isset($params['pageSize']) ? $params['pageSize'] : 15;
         $m = $this->model->search($params['search']);
-        $m->paginate($perPage);
-        return $m;
+        return $m->paginate($perPage);
     }
 
 }
