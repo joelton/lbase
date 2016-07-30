@@ -19,11 +19,22 @@ class Uploader
     public $subfolder;
     private $fileList = [];
 
+    /**
+     * Uploader constructor.
+     *
+     * @param string $subfolder
+     */
     public function __construct($subfolder = '')
     {
-        $this->subfolder = $subfolder;
+        $this->subfolder = rtrim($subfolder, '/');
     }
 
+    /**
+     * @param $files
+     *
+     * @return bool|Document
+     * @throws \Exception
+     */
     public function handle($files)
     {
         if (is_array($files)) {
@@ -35,6 +46,11 @@ class Uploader
         throw new \Exception("Dados inválidos para upload");
     }
 
+    /**
+     * @param array $files
+     *
+     * @return bool
+     */
     public function handleMultipleFiles(array $files)
     {
         foreach ($files as $file) {
@@ -43,19 +59,28 @@ class Uploader
         return true;
     }
 
+    /**
+     * @param $file
+     *
+     * @return Document
+     * @throws \Exception
+     */
     public function handleSingleFile($file)
     {
         if (!$file instanceof UploadedFile) {
             throw new \Exception("Dados inválidos para upload");
         }
+
         $d = new Document();
 
         $d->uniqueName = $this->getUniqueName();
         $d->originalName = $file->getClientOriginalName();
         $d->extension = $file->getClientOriginalExtension();
         $d->mimeType = $file->getClientMimeType();
-        $d->filePath = sprintf('%s%s.%s', $this->subfolder, $d->uniqueName, $d->extension);
+        $d->filePath = sprintf('%s/%s.%s', $this->subfolder, $d->uniqueName, $d->extension);
         $d->storage = Config::get('filesystems.default');
+        $d->hash = md5_file($file->getRealPath());
+        $d->createdAt = date('c');
 
         $disk = Storage::disk()->getDriver();
 
@@ -101,7 +126,7 @@ class Uploader
     /**
      * @return array
      */
-    public function getFileList()
+    public function getUploadedFilesList()
     {
         return $this->fileList;
     }
