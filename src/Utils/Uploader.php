@@ -133,7 +133,7 @@ class Uploader
                 $constraint->upsize();
             });
 
-            $img->save($document->realPath, 90);
+            $img->save(sprintf('%s.%s', $document->realPath, $document->extension), 90);
         }
     }
 
