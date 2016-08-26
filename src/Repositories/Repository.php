@@ -253,7 +253,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function delete($id)
     {
-        $model = $this->find($id);
+        $model = $this->find($id)->first();
 
         if (!$model) {
             throw new RepositoryException("O item não solicitado não existe.");
