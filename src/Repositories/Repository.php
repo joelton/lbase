@@ -229,7 +229,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function update($id, array $data)
     {
-        $model = $this->find($id);
+        $model = $this->find($id)->first();
 
         if (!$model) {
             throw new RepositoryException("O item não solicitado não existe.");
