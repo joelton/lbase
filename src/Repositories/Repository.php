@@ -229,7 +229,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function update($id, array $data)
     {
-        $model = $this->find($id)->first();
+        $model = $this->find($id);
 
         if (!$model) {
             throw new RepositoryException("O item não solicitado não existe.");
@@ -253,7 +253,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function delete($id)
     {
-        $model = $this->find($id)->first();
+        $model = $this->find($id);
 
         if (!$model) {
             throw new RepositoryException("O item não solicitado não existe.");
